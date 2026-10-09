@@ -304,9 +304,11 @@
         const baseQty = Math.min(...def.skus.map(s => { const ln = g.lines.find(x => x.sku === s); return ln ? ln.qty : 0; }));
         if (baseQty > 0) {
           const bundleSub = def.skus.reduce((a, s) => a + CATALOG[s].price, 0) * baseQty;
-          const disc = bundleSub * def.discountPct;
+          const disc = (typeof def.price === 'number')
+            ? bundleSub - def.price * baseQty
+            : bundleSub * def.discountPct;
           bundleDiscount += disc;
-          bundleSummaries.push({ title: def.title, qty: baseQty, discount: disc });
+          bundleSummaries.push({ title: def.title, qty: baseQty, discount: disc, label: typeof def.price === 'number' ? 'bundle price' : '30% off' });
         }
       }
     });
@@ -340,7 +342,7 @@
     `).join('');
     const t = calcTotals();
     const rows = [`<div class="total-row"><span>Subtotal</span><span>${fmt(t.subtotal)}</span></div>`];
-    t.bundleSummaries.forEach(b => rows.push(`<div class="total-row save"><span>${b.title} · 30% off${b.qty > 1 ? ' × ' + b.qty : ''}</span><span>− ${fmt(b.discount)}</span></div>`));
+    t.bundleSummaries.forEach(b => rows.push(`<div class="total-row save"><span>${b.title} · ${b.label}${b.qty > 1 ? ' × ' + b.qty : ''}</span><span>− ${fmt(b.discount)}</span></div>`));
     if (t.promoDiscount > 0) rows.push(`<div class="total-row save"><span>Promo (${activePromo.code})</span><span>− ${fmt(t.promoDiscount)}</span></div>`);
     rows.push(`<div class="total-row"><span>Shipping</span><span>${t.shipping === 0 ? 'Free' : fmt(t.shipping)}</span></div>`);
     document.getElementById('totals').innerHTML = rows.join('');

@@ -241,6 +241,7 @@
           <a href="shop.html?cat=Personal Care">Personal Care</a>
           <a href="shop.html?cat=Home Comfort">Home Comfort</a>
           <a href="shop.html?cat=Tech">Tech</a>
+          <a href="shop.html?cat=Guides">Guides</a>
         </div>
       </div>
       <a href="index.html#bundles">Bundles</a>
@@ -271,6 +272,7 @@
     <li><a href="shop.html?cat=Personal Care">Personal Care</a></li>
     <li><a href="shop.html?cat=Home Comfort">Home Comfort</a></li>
     <li><a href="shop.html?cat=Tech">Tech</a></li>
+    <li><a href="shop.html?cat=Guides">Guides</a></li>
     <li><a href="index.html#bundles">Bundles · 30% off</a></li>
     <li><a href="index.html#quizzes">Take a Quiz</a></li>
   </ul>
@@ -296,6 +298,7 @@
         <option value="Personal Care">Personal Care</option>
         <option value="Home Comfort">Home Comfort</option>
         <option value="Tech">Tech</option>
+        <option value="Guides">Guides</option>
       </select>
     </div>
     <div class="ctrl-group">
@@ -371,6 +374,7 @@
         <li><a href="shop.html?cat=Personal Care">Personal Care</a></li>
         <li><a href="shop.html?cat=Home Comfort">Home Comfort</a></li>
         <li><a href="shop.html?cat=Tech">Tech</a></li>
+        <li><a href="shop.html?cat=Guides">Guides</a></li>
       </ul>
     </div>
     <div>
@@ -500,9 +504,11 @@
         const baseQty = Math.min(...def.skus.map(s => { const ln = g.lines.find(x => x.sku === s); return ln ? ln.qty : 0; }));
         if (baseQty > 0) {
           const bundleSub = def.skus.reduce((a, s) => a + CATALOG[s].price, 0) * baseQty;
-          const disc = bundleSub * def.discountPct;
+          const disc = (typeof def.price === 'number')
+            ? bundleSub - def.price * baseQty
+            : bundleSub * def.discountPct;
           bundleDiscount += disc;
-          bundleSummaries.push({ title: def.title, qty: baseQty, discount: disc });
+          bundleSummaries.push({ title: def.title, qty: baseQty, discount: disc, label: typeof def.price === 'number' ? 'bundle price' : '30% off' });
         }
       }
     });
@@ -549,7 +555,7 @@
     const t = calcTotals();
     const discounts = document.getElementById('drawerDiscounts');
     let rows = [`<div class="drawer-discount-row"><span>Subtotal</span><span>${fmt(t.subtotal)}</span></div>`];
-    t.bundleSummaries.forEach(b => rows.push(`<div class="drawer-discount-row save"><span>${b.title} · 30% off${b.qty > 1 ? ' × ' + b.qty : ''}</span><span>− ${fmt(b.discount)}</span></div>`));
+    t.bundleSummaries.forEach(b => rows.push(`<div class="drawer-discount-row save"><span>${b.title} · ${b.label}${b.qty > 1 ? ' × ' + b.qty : ''}</span><span>− ${fmt(b.discount)}</span></div>`));
     discounts.innerHTML = rows.join('');
     document.getElementById('drawerTotal').textContent = fmt(t.total);
     const ship = document.getElementById('drawerShip');

@@ -351,6 +351,7 @@
           <a href="shop.html?cat=Personal Care">Personal Care</a>
           <a href="shop.html?cat=Home Comfort">Home Comfort</a>
           <a href="shop.html?cat=Tech">Tech</a>
+          <a href="shop.html?cat=Guides">Guides</a>
         </div>
       </div>
       <a href="#bundles">Bundles</a>
@@ -385,6 +386,7 @@
     <li><a href="shop.html?cat=Personal Care">Personal Care</a></li>
     <li><a href="shop.html?cat=Home Comfort">Home Comfort</a></li>
     <li><a href="shop.html?cat=Tech">Tech</a></li>
+    <li><a href="shop.html?cat=Guides">Guides</a></li>
     <li><a href="#bundles">Bundles · 30% off</a></li>
     <li><a href="#quizzes">Take a Quiz</a></li>
     <li><a href="#help">Help</a></li>
@@ -399,7 +401,7 @@
     <div class="hero-banner">
       <div class="hero-eyebrow">Household gadgets · Shop by room</div>
       <h1 class="hero-title">Everything your home runs on.</h1>
-      <p class="hero-sub">Kitchen, cleaning, pet, personal care, home comfort, tech. Six categories, one cart. Bundles save 30%.</p>
+      <p class="hero-sub">Kitchen, cleaning, pet, personal care, home comfort, tech, and digital guides. Seven categories, one cart.</p>
     </div>
     <div class="cat-mosaic" id="catMosaic"></div>
   </div>
@@ -434,7 +436,7 @@
         <div class="sec-eyebrow">Save 30% · Auto-applied</div>
         <h2 class="sec-title">Bundles</h2>
       </div>
-      <p class="sec-sub">Twelve curated trios. Add the bundle and 30% comes off automatically.</p>
+      <p class="sec-sub">Curated trios — most save 30% automatically. The guides trio is a set price.</p>
     </div>
     <div id="bundlesContainer"></div>
   </div>
@@ -511,6 +513,7 @@
         <li><a href="shop.html?cat=Personal Care">Personal Care</a></li>
         <li><a href="shop.html?cat=Home Comfort">Home Comfort</a></li>
         <li><a href="shop.html?cat=Tech">Tech</a></li>
+        <li><a href="shop.html?cat=Guides">Guides</a></li>
       </ul>
     </div>
     <div>
@@ -561,10 +564,10 @@
 <script>
   const { CATALOG, BUNDLES, QUIZZES } = window.HOMEOFTEN;
   const fmt = (n) => '$' + n.toFixed(2);
-  const SECTIONS = ['Kitchen','Cleaning','Pet','Personal Care','Home Comfort','Tech'];
+  const SECTIONS = ['Kitchen','Cleaning','Pet','Personal Care','Home Comfort','Tech','Guides'];
 
   // Hero category mosaic — uses a representative product image per category
-  const HERO_PIC = { 'Kitchen': 'kit054', 'Cleaning': 'cln001', 'Pet': 'pet003', 'Personal Care': 'per004', 'Home Comfort': 'com020', 'Tech': 'tec022' };
+  const HERO_PIC = { 'Kitchen': 'kit054', 'Cleaning': 'cln001', 'Pet': 'pet003', 'Personal Care': 'per004', 'Home Comfort': 'com020', 'Tech': 'tec022', 'Guides': 'eb001' };
   const mosaicEl = document.getElementById('catMosaic');
   SECTIONS.forEach(sec => {
     const sku = HERO_PIC[sec];
@@ -594,12 +597,13 @@
     grid.className = 'bundle-grid';
     inSec.forEach(b => {
       const sub = b.skus.reduce((a, s) => a + CATALOG[s].price, 0);
-      const total = sub * (1 - b.discountPct);
+      const total = (typeof b.price === 'number') ? b.price : sub * (1 - b.discountPct);
       const save = sub - total;
+      const badge = (typeof b.price === 'number') ? 'Trio price' : '30% off';
       const card = document.createElement('div');
       card.className = 'bundle-card';
       card.innerHTML = `
-        <div class="bundle-badge">30% off</div>
+        <div class="bundle-badge">${badge}</div>
         <div class="bundle-imgs">
           <div><img src="${CATALOG[b.skus[0]].image}" alt=""></div>
           <div><img src="${CATALOG[b.skus[1]].image}" alt=""></div>
@@ -683,9 +687,11 @@
         const baseQty = Math.min(...def.skus.map(s => { const ln = g.lines.find(x => x.sku === s); return ln ? ln.qty : 0; }));
         if (baseQty > 0) {
           const bundleSub = def.skus.reduce((a, s) => a + CATALOG[s].price, 0) * baseQty;
-          const disc = bundleSub * def.discountPct;
+          const disc = (typeof def.price === 'number')
+            ? bundleSub - def.price * baseQty
+            : bundleSub * def.discountPct;
           bundleDiscount += disc;
-          bundleSummaries.push({ title: def.title, qty: baseQty, discount: disc });
+          bundleSummaries.push({ title: def.title, qty: baseQty, discount: disc, label: typeof def.price === 'number' ? 'bundle price' : '30% off' });
         }
       }
     });
@@ -727,7 +733,7 @@
     const t = calcTotals();
     const discounts = document.getElementById('drawerDiscounts');
     let rows = [`<div class="drawer-discount-row"><span>Subtotal</span><span>${fmt(t.subtotal)}</span></div>`];
-    t.bundleSummaries.forEach(b => rows.push(`<div class="drawer-discount-row save"><span>${b.title} · 30% off${b.qty > 1 ? ' × ' + b.qty : ''}</span><span>− ${fmt(b.discount)}</span></div>`));
+    t.bundleSummaries.forEach(b => rows.push(`<div class="drawer-discount-row save"><span>${b.title} · ${b.label}${b.qty > 1 ? ' × ' + b.qty : ''}</span><span>− ${fmt(b.discount)}</span></div>`));
     discounts.innerHTML = rows.join('');
     document.getElementById('drawerTotal').textContent = fmt(t.total);
     const ship = document.getElementById('drawerShip');
