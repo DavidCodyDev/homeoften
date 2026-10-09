@@ -351,7 +351,7 @@
           <a href="shop.html?cat=Personal Care">Personal Care</a>
           <a href="shop.html?cat=Home Comfort">Home Comfort</a>
           <a href="shop.html?cat=Tech">Tech</a>
-          <a href="shop.html?cat=Guides">Guides</a>
+          <a href="shop.html?cat=Ebooks">Ebooks</a>
         </div>
       </div>
       <a href="#bundles">Bundles</a>
@@ -386,7 +386,7 @@
     <li><a href="shop.html?cat=Personal Care">Personal Care</a></li>
     <li><a href="shop.html?cat=Home Comfort">Home Comfort</a></li>
     <li><a href="shop.html?cat=Tech">Tech</a></li>
-    <li><a href="shop.html?cat=Guides">Guides</a></li>
+    <li><a href="shop.html?cat=Ebooks">Ebooks</a></li>
     <li><a href="#bundles">Bundles · 30% off</a></li>
     <li><a href="#quizzes">Take a Quiz</a></li>
     <li><a href="#help">Help</a></li>
@@ -401,7 +401,7 @@
     <div class="hero-banner">
       <div class="hero-eyebrow">Household gadgets · Shop by room</div>
       <h1 class="hero-title">Everything your home runs on.</h1>
-      <p class="hero-sub">Kitchen, cleaning, pet, personal care, home comfort, tech, and digital guides. Seven categories, one cart.</p>
+      <p class="hero-sub">Kitchen, cleaning, pet, personal care, home comfort, tech, and ebooks. Seven categories, one cart.</p>
     </div>
     <div class="cat-mosaic" id="catMosaic"></div>
   </div>
@@ -436,7 +436,7 @@
         <div class="sec-eyebrow">Save 30% · Auto-applied</div>
         <h2 class="sec-title">Bundles</h2>
       </div>
-      <p class="sec-sub">Curated trios — most save 30% automatically. The guides trio is a set price.</p>
+      <p class="sec-sub">Curated trios — most save 30% automatically. The ebooks trio is a set price.</p>
     </div>
     <div id="bundlesContainer"></div>
   </div>
@@ -513,7 +513,7 @@
         <li><a href="shop.html?cat=Personal Care">Personal Care</a></li>
         <li><a href="shop.html?cat=Home Comfort">Home Comfort</a></li>
         <li><a href="shop.html?cat=Tech">Tech</a></li>
-        <li><a href="shop.html?cat=Guides">Guides</a></li>
+        <li><a href="shop.html?cat=Ebooks">Ebooks</a></li>
       </ul>
     </div>
     <div>
@@ -564,10 +564,10 @@
 <script>
   const { CATALOG, BUNDLES, QUIZZES } = window.HOMEOFTEN;
   const fmt = (n) => '$' + n.toFixed(2);
-  const SECTIONS = ['Kitchen','Cleaning','Pet','Personal Care','Home Comfort','Tech','Guides'];
+  const SECTIONS = ['Kitchen','Cleaning','Pet','Personal Care','Home Comfort','Tech','Ebooks'];
 
   // Hero category mosaic — uses a representative product image per category
-  const HERO_PIC = { 'Kitchen': 'kit054', 'Cleaning': 'cln001', 'Pet': 'pet003', 'Personal Care': 'per004', 'Home Comfort': 'com020', 'Tech': 'tec022', 'Guides': 'eb001' };
+  const HERO_PIC = { 'Kitchen': 'kit054', 'Cleaning': 'cln001', 'Pet': 'pet003', 'Personal Care': 'per004', 'Home Comfort': 'com020', 'Tech': 'tec022', 'Ebooks': 'eb001' };
   const mosaicEl = document.getElementById('catMosaic');
   SECTIONS.forEach(sec => {
     const sku = HERO_PIC[sec];

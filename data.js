@@ -303,9 +303,9 @@ window.HOMEOFTEN.CATALOG = {
   "tec021": {"sku":"tec021","section":"Tech","name":"Household intelligent air purifier","price":136.95,"image":"images/tec021.png","source":"https://crossbeez.com/product?id=1093"},
   "tec022": {"sku":"tec022","section":"Tech","name":"Intelligent air purifier","price":89.98,"image":"images/tec022.png","source":"https://crossbeez.com/product?id=1094"},
   "tec023": {"sku":"tec023","section":"Tech","name":"Air purifier for whole family","price":96.67,"image":"images/tec023.png","source":"https://crossbeez.com/product?id=1095"},
-  "eb001": {"sku":"eb001","section":"Guides","name":"Lived In, Looked After","price":18.67,"image":"images/eb-main.jpg"},
-  "eb002": {"sku":"eb002","section":"Guides","name":"The Morning Kitchen","price":9.79,"image":"images/eb-kitchen.jpg"},
-  "eb003": {"sku":"eb003","section":"Guides","name":"Warm Cool Calm","price":9.79,"image":"images/eb-calm.jpg"}
+  "eb001": {"sku":"eb001","section":"Ebooks","name":"Lived In, Looked After","price":18.67,"image":"images/eb-main.jpg"},
+  "eb002": {"sku":"eb002","section":"Ebooks","name":"The Morning Kitchen","price":9.79,"image":"images/eb-kitchen.jpg"},
+  "eb003": {"sku":"eb003","section":"Ebooks","name":"Warm Cool Calm","price":9.79,"image":"images/eb-calm.jpg"}
 };
 
 window.HOMEOFTEN.BUNDLES = [
@@ -321,7 +321,7 @@ window.HOMEOFTEN.BUNDLES = [
   {slug:"cozy-corner-kit",title:"Cozy Corner Kit",section:"Home Comfort",tagline:"Cool-mist humidifier with diffuser, smart power-off coaster, and a mini pocket fan. The desk-side set.",code:"COZY30",discountPct:0.30,skus:["com050","com058","com017"],coverSku:"com050"},
   {slug:"daily-power-pack",title:"Daily Power Pack",section:"Tech",tagline:"Three high-capacity power bank hand warmers — 10000mAh, multi-function, and a regular. Charge anything, keep your hands warm.",code:"POWER30",discountPct:0.30,skus:["tec008","tec005","tec009"],coverSku:"tec008"},
   {slug:"clean-air-set",title:"Clean Air Set",section:"Tech",tagline:"Three air purifiers — small room, bedroom, and intelligent whole-home. Place one in each room.",code:"AIR30",discountPct:0.30,skus:["tec017","tec020","tec022"],coverSku:"tec017"},
-  {slug:"homeoften-guides",title:"The HomeOften Guides Trio",section:"Guides",tagline:"Lived In, Looked After plus The Morning Kitchen and Warm Cool Calm — three digital home guides at a set trio price.",code:"GUIDES",price:34.87,skus:["eb001","eb002","eb003"],coverSku:"eb001"},
+  {slug:"homeoften-guides",title:"The HomeOften Ebooks Trio",section:"Ebooks",tagline:"Lived In, Looked After plus The Morning Kitchen and Warm Cool Calm — three digital home ebooks at a set trio price.",code:"GUIDES",price:34.87,skus:["eb001","eb002","eb003"],coverSku:"eb001"},
 ];
 
 window.HOMEOFTEN.QUIZZES = [
